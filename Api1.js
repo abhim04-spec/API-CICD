@@ -12,12 +12,17 @@ app.get('/users', (req, res) => {
 
 // POST create user
 app.post('/users', (req, res) => {
-    const user = req.body;
+    const user = { name: req.body.name, address: req.body.address, zipCode: req.body.zipCode };
 
     if (!user.name) {
         return res.status(400).json({ error: 'Name required' });
     }
-
+    else if (!user.address) {
+        return res.status(400).json({ error: "address is mandatory" });
+    }
+    else if (!user.zipCode) {
+        return res.status(400).json({ error: "ZipCode is important" });
+    }
     users.push(user);
     res.status(201).json(user);
 });
